@@ -1,0 +1,18 @@
+public class Quad {
+	public Point point1,point2,point3,point4,center;
+	public Quad(){
+		point1=new Point();
+		point2=new Point();
+		point3=new Point();
+		point4=new Point();
+		center=new Point();
+	}
+	public Point getCenter(){
+		//权重之和
+		double s=1/point1.r+1/point2.r+1/point3.r+1/point4.r;
+		center.x=(point1.x/point1.r+point2.x/point2.r+point3.x/point3.r+point4.x/point4.r)/s;
+		center.y=(point1.y/point1.r+point2.y/point2.r+point3.y/point3.r+point4.y/point4.r)/s;
+		return center;
+	}
+}
+//四边形
