@@ -1,0 +1,23 @@
+	public static void single_intersection(Point center1,double r1,Point center2,double r2,Point point){
+		//两个圆有一个交点情况，不是内切就是外切
+		//无论是内切还是外切，求相切的唯一切点
+			//point.x=(center1.x/r1+center2.x/r2)/(1/r1+1/r2);
+		//	point.y=(center1.y/r1+center2.y/r2)/(1/r1+1/r2);
+		 double a, b, c, p, q, r;
+		 double cos_value; // 交点的在 圆 上对应的正余弦取值 
+		 double sin_value;
+		 a = 2.0 * r1 * (center1.x - center2.x);
+		 b = 2.0 * r1 * (center1.y -center2.y);
+		 c = r2*r2 - r1*r1- Point.distance_sqr(center1, center2);
+		 p = a * a + b * b;
+		 q = -2.0 * a * c;
+		 cos_value = -q / p / 2.0;
+		 sin_value = Math.sqrt(Math.abs(1 - cos_value * cos_value));
+	     point.x = r1 * cos_value + center1.x;
+	     point.y = r1 * sin_value + center1.y;
+			        // 在这里验证解是否正确, 如果不正确, 则将纵坐标符号进行变换
+	     if (!isDoubleEqual(Point.distance_sqr(point, center2), r2 * r2)) {
+				point.y = center1.y - r1 * sin_value;
+			} 
+	     point.r=r1>r2?r2:r1;
+	}
