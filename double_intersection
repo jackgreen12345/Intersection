@@ -1,0 +1,41 @@
+	public static void double_intersection(Point center1, double r1,
+			Point center2, double r2, Point point1, Point point2) {
+		// 如果x相等，point1为y大的，如果x不相等，point1为x大的
+		//两圆相交，两个交点point1和point2
+		 
+		double a, b, c, p, q, r;
+		double cos_value[] = new double[2]; // 交点的在 圆 上对应的正余弦取值
+		double sin_value[] = new double[2];
+		a = 2.0 * r1 * (center1.x - center2.x);
+		b = 2.0 * r1 * (center1.y - center2.y);
+		c = r2 * r2 - r1 * r1 - Point.distance_sqr(center1, center2);
+		p = a * a + b * b;
+		q = -2.0 * a * c;
+		r = c * c - b * b;
+		cos_value[0] = (Math.sqrt(Math.abs(q * q - 4.0 * p * r)) - q) / p / 2.0;
+		cos_value[1] = (-Math.sqrt(Math.abs(q * q - 4.0 * p * r)) - q) / p / 2.0;
+		sin_value[0] = Math.sqrt(Math.abs(1 - cos_value[0] * cos_value[0]));
+		sin_value[1] = Math.sqrt(Math.abs(1 - cos_value[1] * cos_value[1]));
+		point1.x = r1 * cos_value[0] + center1.x;
+		point2.x = r1 * cos_value[1] + center1.x;
+		point1.y = r1 * sin_value[0] + center1.y;
+		point2.y = r1 * sin_value[1] + center1.y;
+		if (!isDoubleEqual(Point.distance_sqr(point1, center2), r2 * r2)) {
+			point1.y = center1.y - r1 * sin_value[0];
+		}
+		if (!isDoubleEqual(Point.distance_sqr(point2, center2), r2 * r2)) {
+			point2.y = center1.y - r1 * sin_value[1];
+		}
+		// 如果求得的两个点坐标相同, 则必然其中一个点的纵坐标反号可以求得另一点坐标
+		if (isDoubleEqual(point1.y, point2.y)
+				&& isDoubleEqual(point1.x, point2.x)) {
+			if (point1.y > 0) {
+				point2.y = -point2.y;
+			} else {
+				point1.y = -point1.y;
+			}
+		}
+		point1.r=r1>r2?r2:r1;
+		point2.r=r1>r2?r2:r1;
+
+	}
