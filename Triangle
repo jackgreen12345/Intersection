@@ -1,0 +1,20 @@
+public class Triangle {
+	public Point point1;
+	public Point point2;
+	public Point point3;
+	public Point center;
+	public Triangle(){
+		point1=new Point();
+		point2=new Point();
+		point3=new Point();
+		center=new Point();
+	}
+	public Point getCenter(){
+		//权重之和
+			double s=1/point1.r+1/point2.r+1/point3.r;
+			center.x=(point1.x/point1.r+point2.x/point2.r+point3.x/point3.r)/s;
+			center.y=(point1.y/point1.r+point2.y/point2.r+point3.y/point3.r)/s;
+			return center;
+	}
+}
+//三角形
